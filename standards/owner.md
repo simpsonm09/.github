@@ -96,6 +96,9 @@ about 4.9 h on runner queue. Removing the Windows and macOS jobs (C5.6) leaves
 the listed Linux jobs as the whole workflow; the C5.5 exception records the
 measurement until the required set runs under 60 s.
 
+`just fleet-audit` re-derives this conformance list read-only, and `just fleet-audit --timing`
+adds the C5.1 median; `scripts/fleet-audit.ts` is the shared copy of the tool.
+
 ## Git hooks
 
 Hooks run through Lefthook, pinned in `mise.toml` as `"aqua:evilmartians/lefthook"` (C7.8). Each
