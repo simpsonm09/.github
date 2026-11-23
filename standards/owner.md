@@ -138,21 +138,20 @@ git-ignored, and agents never skip hooks: no `LEFTHOOK=0`, no `--no-verify` (C7.
 - **O5 The profile repository stays a page.** `simpsonm09/simpsonm09` has a
   README, no CI, and no required checks. Its no-CI status is an explicit
   exception, recorded in the backlog until it has a `docs/exceptions.md`.
-- **O6 Know the boundary.** The organization catalog's `owned-repositories.json`
-  and `owned-forks.json` mention `simpsonm09/simpsonm09` and
-  `simpsonm09/pstack-max` at agent access `propose`. Those entries grant nothing:
-  the organization standard excludes personal repositories. This standard is the
-  authority for them, and O6 is the follow-up that aligns the catalog.
+- **O6 Know the boundary.** This standard is the only authority for this
+  account's repositories. The organization's standard and catalog do not cover
+  them, and since 2026-11-23 there is no agent-access policy anywhere: agents
+  work under the owner's accounts, and enforcement is rulesets, required checks
+  and hooks.
 
 ## Superseded
 
 No standard previously covered this account. The organization's
 `repo-standard/docs/github-settings.md` says the standard covers organization
 repositories only, and a personal repository is out of scope. The organization
-`repo-catalog` nevertheless listed `simpsonm09/simpsonm09` in
-`owned-repositories.json` and `simpsonm09/pstack-max` in `owned-forks.json` at
-`propose`; neither repository had a ruleset, a required check, or an `AGENTS.md`,
-so the listing was intent only.
+`repo-catalog` once listed `simpsonm09/simpsonm09` and `simpsonm09/pstack-max` in
+agent-access policy files; those files and the agent-access system were retired
+on 2026-11-23.
 
 This standard replaces that intent for the account. It changes current practice:
 
