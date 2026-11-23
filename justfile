@@ -6,6 +6,10 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
+# Install the pinned tools from mise.toml. There is no package manager.
+install:
+    mise install
+
 # Compare standards/core.md with the other four owner repositories.
 core-drift:
     bun scripts/core-drift.ts
@@ -18,5 +22,9 @@ fmt:
 fmt-check:
     bun fmt --check
 
+# Check the agent skill files: frontmatter, recipes and the .claude symlinks.
+agent-files:
+    bun scripts/agent-files.ts
+
 # Run the checks CI requires.
-check: fmt-check
+check: fmt-check agent-files
