@@ -10,12 +10,12 @@ projects: coding-focused, but lighter than the `simpsonm09-projects` organizatio
 Live `gh repo list simpsonm09` on 2026-11-23: four repositories, all public, none
 archived.
 
-| Repository                          | Visibility | Kind                                   | Notes                                                                             |
-| ----------------------------------- | ---------- | -------------------------------------- | --------------------------------------------------------------------------------- |
-| `simpsonm09/.github`                | public     | Account defaults and this standard     | Community defaults only; no workflows before this change                          |
-| `simpsonm09/simpsonm09`             | public     | Profile landing page                   | README plus `.env.example` and `.worktreeinclude`; not the `/profile/` repository |
-| `simpsonm09/steam-wishlist-cleanup` | public     | General-use tool (Python)              | Moved from the `simpsonm09-projects` organization on 2026-11-23; no tests or CI   |
-| `simpsonm09/pstack-max`             | public     | Fork of `michael-denyer/pstack-claude` | Upstream MIT license; the fork adds OpenCode, T3, and Windows Copilot support     |
+| Repository                          | Visibility | Kind                                   | Notes                                                                              |
+| ----------------------------------- | ---------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
+| `simpsonm09/.github`                | public     | Account defaults and this standard     | Community defaults only; no workflows before this change                           |
+| `simpsonm09/simpsonm09`             | public     | Profile landing page                   | README plus `.env.example` and `.worktreeinclude`; not the `/profile/` repository  |
+| `simpsonm09/steam-wishlist-cleanup` | public     | General-use tool (Python)              | Moved from the `simpsonm09-projects` organization on 2026-11-23; no tests or CI    |
+| `simpsonm09/pstack-max`             | public     | Fork of `michael-denyer/pstack-claude` | Upstream MIT license; the fork adds OpenCode, T3, and Windows-target Copilot hooks |
 
 The organization standard in `simpsonm09-projects/repo-standard` is out of scope
 here. It covers organization repositories only.
@@ -85,16 +85,16 @@ Required contexts are exactly the job names present in that repository.
 | Repository               | Required contexts                                                                                                                                                                    | Notes                                                                                                     |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | `steam-wishlist-cleanup` | `fmt-check`, `lint`, `typecheck`, `test`                                                                                                                                             | Python tool; no build job                                                                                 |
-| `pstack-max`             | `Generated files current`, `Fork registry`, `Skills-only install`, `Pi extension types`, `Vendored bun tooling`, `Shell scripts`, `Workflow lint`, `Markdown lint`, `Markdown links` | Keeps upstream's `CI` workflow. Its Windows and macOS jobs are not required (C5.4).                       |
+| `pstack-max`             | `Generated files current`, `Fork registry`, `Skills-only install`, `Pi extension types`, `Vendored bun tooling`, `Shell scripts`, `Workflow lint`, `Markdown lint`, `Markdown links` | Keeps upstream's `CI` workflow with the Windows and macOS jobs removed; every job runs on Linux (C5.6).   |
 | `simpsonm09/.github`     | None                                                                                                                                                                                 | No code. Ruleset still requires a pull request, a signature, squash, and no deletion or non-fast-forward. |
 | `simpsonm09/simpsonm09`  | None                                                                                                                                                                                 | README only. Same ruleset without status checks.                                                          |
 
 CI is budgeted at under 60 seconds of required-check wall clock (C5.1).
-`steam-wishlist-cleanup` has no runs yet. `pstack-max` does not meet the budget
-while it keeps upstream's OS matrix: the median of its last 16 pull request runs
-was 126 s, and the longest two were about 4.9 h on runner queue. The listed Linux
-jobs are the required set; the C5.5 exception records the measurement until the
-required set runs under 60 s.
+`steam-wishlist-cleanup` has no runs yet. `pstack-max` does not meet the budget:
+the median of its last 16 pull request runs was 126 s, and the longest two were
+about 4.9 h on runner queue. Removing the Windows and macOS jobs (C5.6) leaves
+the listed Linux jobs as the whole workflow; the C5.5 exception records the
+measurement until the required set runs under 60 s.
 
 ## Git hooks
 
