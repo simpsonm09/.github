@@ -48,7 +48,7 @@ If a private repository appears on this Free account, rulesets are unavailable.
 C2.1 is then enforced by all three of:
 
 1. A committed `lefthook.yml` that loads `hooks/core.yml` and `hooks/owner.yml`
-   through `remotes` at the `hooks-v2` tag and is installed by `just hooks`. Its
+   through `remotes` at the `hooks-v3` tag and is installed by `just hooks`. Its
    `core-policy` job rejects a push to `main` and runs `gitleaks` on the outgoing
    commits.
 2. A `direct-push-guard.yml` workflow that fails on any push to `main` and opens
@@ -100,7 +100,7 @@ required set runs under 60 s.
 
 Hooks run through Lefthook, pinned in `mise.toml` as `"aqua:evilmartians/lefthook"` (C7.8). Each
 repository's `lefthook.yml` loads `hooks/core.yml` and `hooks/owner.yml` from this repository
-through `remotes` at the annotated tag `hooks-v2`, and adds its own jobs under names that never
+through `remotes` at the annotated tag `hooks-v3`, and adds its own jobs under names that never
 start with `core-` or `owner-`. Repositories migrate from the old `.githooks` launchers to Lefthook
 per core C7.8.
 
