@@ -4,5 +4,5 @@
 pre-commit:
   jobs:
     - name: owner-signing
-      run: just signing-check
+      run: mise exec -- just signing-check
       fail_text: "This checkout cannot sign commits. Set commit.gpgsign=true and user.signingkey before committing."
