@@ -1,3 +1,4 @@
 # Verbatim copies. Change them only by replacing the file from the standard.
 standards/core.md
+hooks/core.yml
 scripts/core-drift.ts
