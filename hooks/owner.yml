@@ -1,0 +1,8 @@
+# hooks/owner.yml — simpsonm09 owner hook jobs. Loaded with hooks/core.yml via remotes.
+# Every job calls a `just` recipe listed in standards/owner.md. Repository jobs
+# never reuse an `owner-*` name.
+pre-commit:
+  jobs:
+    - name: owner-signing
+      run: just signing-check
+      fail_text: "This checkout cannot sign commits. Set commit.gpgsign=true and user.signingkey before committing."
