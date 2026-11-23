@@ -14,6 +14,11 @@ install:
 core-drift:
     bun scripts/core-drift.ts
 
+# Audit every repository of this owner against the core and owner standards.
+# `just fleet-audit --timing` adds the C5.1 median pull request CI wall time.
+fleet-audit *args:
+    bun scripts/fleet-audit.ts {{args}}
+
 # Format this repository.
 fmt:
     bun fmt
