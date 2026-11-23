@@ -18,3 +18,8 @@ Fleet CI, checks, templates, and governance remain in [repo-standard](https://gi
 Workflows, branch protection, repository settings, and agent instructions require explicit configuration. Merely placing them here does not apply them across the account.
 
 See [GitHub's default community health file documentation](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file).
+
+## Standards
+
+- [Core repository standard](standards/core.md): shared by five owner accounts, byte-identical, checked by `just core-drift`.
+- [simpsonm09 owner standard](standards/owner.md): scope, protection, required checks, and the conformance backlog for this account.
