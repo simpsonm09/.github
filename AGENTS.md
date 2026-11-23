@@ -7,8 +7,10 @@ core plus this owner's choices.
 ## Commands
 
 - `just` lists recipes.
+- `just install` installs the pinned tools from `mise.toml`.
 - `just fmt` formats; `just fmt-check` fails when a file needs formatting.
-- `just check` runs what CI would require, currently `fmt-check`.
+- `just agent-files` checks `.agents/skills` against `.claude/skills`.
+- `just check` runs what CI would require: `fmt-check` and `agent-files`.
 - `just core-drift` compares `standards/core.md` with the other four owners.
 
 ## Invariants
@@ -19,6 +21,8 @@ core plus this owner's choices.
   `just core-drift` must pass before merge.
 - `standards/owner.md` is this account's standard. Keep it aligned with live
   GitHub state and with the conformance backlog it carries.
+- `docs/exceptions.md` lists the rules this repository cannot meet, with reasons and
+  revisit dates. Keep it current.
 - Do not add workflows. This repository has no CI by design; `just check` is the
   local gate.
 - Keep the existing community files unchanged. They are the account defaults
