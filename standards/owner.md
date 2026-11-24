@@ -82,12 +82,12 @@ each job calls a `just` recipe:
 
 Required contexts are exactly the job names present in that repository.
 
-| Repository               | Required contexts                                                                                                                                                                    | Notes                                                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| `steam-wishlist-cleanup` | `fmt-check`, `lint`, `typecheck`, `test`                                                                                                                                             | Python tool; no build job                                                                                 |
-| `pstack-max`             | `Generated files current`, `Fork registry`, `Skills-only install`, `Pi extension types`, `Vendored bun tooling`, `Shell scripts`, `Workflow lint`, `Markdown lint`, `Markdown links` | Keeps upstream's `CI` workflow with the Windows and macOS jobs removed; every job runs on Linux (C5.6).   |
-| `simpsonm09/.github`     | None                                                                                                                                                                                 | No code. Ruleset still requires a pull request, a signature, squash, and no deletion or non-fast-forward. |
-| `simpsonm09/simpsonm09`  | None                                                                                                                                                                                 | README only. Same ruleset without status checks.                                                          |
+| Repository               | Required contexts                                                                                                                                                                                                                                   | Notes                                                                                                     |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `steam-wishlist-cleanup` | `fmt-check`, `lint`, `typecheck`, `test`                                                                                                                                                                                                            | Python tool; no build job                                                                                 |
+| `pstack-max`             | `Generated files current`, `Fork registry`, `Skills-only install`, `Pi extension types`, `Vendored bun tooling`, `Shell scripts`, `Workflow lint`, `Workflow static analysis`, `Markdown lint`, `Markdown links`, `OSV vulnerability scan`, `hooks` | Keeps upstream's `CI` workflow with the Windows and macOS jobs removed; every job runs on Linux (C5.6).   |
+| `simpsonm09/.github`     | None                                                                                                                                                                                                                                                | No code. Ruleset still requires a pull request, a signature, squash, and no deletion or non-fast-forward. |
+| `simpsonm09/simpsonm09`  | None                                                                                                                                                                                                                                                | README only. Same ruleset without status checks.                                                          |
 
 CI is budgeted at under 60 seconds of required-check wall clock (C5.1).
 `steam-wishlist-cleanup` has no runs yet. `pstack-max` does not meet the budget:
@@ -101,7 +101,26 @@ adds the C5.1 median; `scripts/fleet-audit.ts` is the shared copy of the tool.
 
 ## CI-only required checks
 
-None.
+C5.7 makes the required pull-request checks the recipes the Lefthook hooks run.
+`steam-wishlist-cleanup` folds every required check into `pre-push-check`.
+`pstack-max` folds `Generated files current`, `Shell scripts`, `Workflow lint` and
+`Workflow static analysis`, and keeps these CI-only because a hook would need the network, a
+Docker daemon or a separate toolchain:
+
+| Context                  | Why it is CI-only                                                            |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| `Markdown lint`          | `npx markdownlint-cli2` fetches the package from npm.                        |
+| `Markdown links`         | Runs a Docker image, so the hook would need the daemon.                      |
+| `Fork registry`          | Dry-run syncs against upstream over the network.                             |
+| `Skills-only install`    | Installs the skills tree with the skills CLI.                                |
+| `Pi extension types`     | Installs Pi globally from npm before the type check.                         |
+| `Vendored bun tooling`   | Runs its own `bun install`, type check and suite in a vendored subdirectory. |
+| `OSV vulnerability scan` | Downloads the OSV database.                                                  |
+| `hooks`                  | A hook cannot validate its own merged config.                                |
+
+`pstack-max`'s `pre-push-check` measures 0.9 s and `steam-wishlist-cleanup`'s 0.3 s, both inside
+the 30 s pre-push budget. The `hooks` job in both repositories also runs `agent-files`,
+`forbidden-files`, `workflows` and `shellcheck`, so every hook check has a CI confirmation.
 
 ## Git hooks
 
